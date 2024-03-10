@@ -53,13 +53,11 @@ function DrawBlock() {
     ctx.fillStyle = "green"
     ctx.fillRect(0,0,10000,10000)
     ctx.fillStyle = "black"
-    console.log(Math.round((World.Camera.x)/64))
     for (let x = Math.round((World.Camera.x)/64); x < 25; x++) {
         for (let y = Math.round((World.Camera.y)/64); y < 20; y++) {
             try {
                 Canvas.DrawBlock(ctx,blockData[y][x],x*64-World.Camera.x,y*64-World.Camera.y)
                 if(blockData[y][x] == "n1" || blockData[y][x] == "n2"){
-                console.log(grow[y][x])
                 }
                 if(grow[y][x] == 1){
 
@@ -87,7 +85,6 @@ function DrawBlock() {
                   }
                 }
                 grow[y][x] = grow[y][x]-1;
-                console.log(grow[y][x] )
             } catch (error) {
                 
             }
@@ -107,7 +104,6 @@ function getMousePosition(canvas, evt) {
     };
   }
   canvas.addEventListener("click", function (evt) {
-    console.log(BlockIndex.x)
     Click.Click()
   },false)
   canvas.addEventListener('mousemove', function (evt) {
@@ -118,9 +114,9 @@ function getMousePosition(canvas, evt) {
   },false)
 function main() {
   if(screen == 0){
+    console.log(World.PlayerMode)
 	MoveCamera()
     DrawBlock()
-    console.log(World.PlayerMode)
     if(World.PlayerMode == 1){
     Canvas.DrawImage(ctx,"./Image/Player/Player.png",Window_Width/2-32,Window_Height/2-32,58,58)
     if(Item.ItemList[World.ItemSlot].type == "a"){
