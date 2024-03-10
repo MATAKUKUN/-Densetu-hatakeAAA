@@ -1,5 +1,4 @@
 var screen = 0;
-
 for (let i = 0; i < 64; i++) {
   Item.addItem("a")
   
@@ -33,8 +32,9 @@ for(var b = 0; b < 100; b++) {
   }
 }
 class World{
+static PlayerMode = 0;
 static Camera = new Pos(320,320)
-static Player = new Pos(320,320)
+static Player = new Pos(0,0)
 static mousePos = new Pos(0,0)
 static ItemSlot = 0;
 static ShopSlot = 0;
@@ -53,8 +53,9 @@ function DrawBlock() {
     ctx.fillStyle = "green"
     ctx.fillRect(0,0,10000,10000)
     ctx.fillStyle = "black"
-    for (let x = Math.round((World.Camera.x-128)/64); x < Math.round((World.Camera.x-128)/64)+25; x++) {
-        for (let y = Math.round((World.Camera.y-128)/64); y < Math.round((World.Camera.y-128)/64)+20; y++) {
+    console.log(Math.round((World.Camera.x)/64))
+    for (let x = Math.round((World.Camera.x)/64); x < 25; x++) {
+        for (let y = Math.round((World.Camera.y)/64); y < 20; y++) {
             try {
                 Canvas.DrawBlock(ctx,blockData[y][x],x*64-World.Camera.x,y*64-World.Camera.y)
                 if(blockData[y][x] == "n1" || blockData[y][x] == "n2"){
@@ -119,7 +120,22 @@ function main() {
   if(screen == 0){
 	MoveCamera()
     DrawBlock()
+    console.log(World.PlayerMode)
+    if(World.PlayerMode == 1){
     Canvas.DrawImage(ctx,"./Image/Player/Player.png",Window_Width/2-32,Window_Height/2-32,58,58)
+    if(Item.ItemList[World.ItemSlot].type == "a"){
+      var Img = new Image()
+      Img.src ="./Image/Item/100.png";
+      ctx.drawImage(Img,Window_Width/2+32,Window_Height/2-32,50,50)
+    }
+    }else{
+      Canvas.DrawImage(ctx,"./Image/Player/PlayerA.png",Window_Width/2-32,Window_Height/2-32,58,58)
+      if(Item.ItemList[World.ItemSlot].type == "a"){
+        var Img = new Image()
+        Img.src ="./Image/Item/100_Reft.png";
+        ctx.drawImage(Img,Window_Width/2-32,Window_Height/2-32,-50,50)
+      }
+    }
     BlockIndex.x = Math.round((World.Camera.x+World.mousePos.x-32)/64)
     BlockIndex.y = Math.round((World.Camera.y+World.mousePos.y-32)/64)
     Canvas.DrawImage(ctx,"./Image/Player/Mouse.png",(BlockIndex.x*64)-World.Camera.x,(BlockIndex.y*64)-World.Camera.y,64,64)
