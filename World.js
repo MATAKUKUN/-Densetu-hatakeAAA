@@ -33,12 +33,12 @@ for(var b = 0; b < 100; b++) {
   }
 }
 class World{
-static Camera = new Pos(0,0)
-static Player = new Pos(0,0)
+static Camera = new Pos(320,320)
+static Player = new Pos(320,320)
 static mousePos = new Pos(0,0)
 static ItemSlot = 0;
 static ShopSlot = 0;
-static Gold = 100;
+static Gold = 0;
 }
 document.getElementById("Game").innerHTML = "<canvas id='canvas'"+" width="+(1400)+" height="+(600)+" >"
 const canvas = document.getElementById("canvas")
@@ -53,8 +53,8 @@ function DrawBlock() {
     ctx.fillStyle = "green"
     ctx.fillRect(0,0,10000,10000)
     ctx.fillStyle = "black"
-    for (let x = Math.round((World.Camera.x-128)/64); x < Math.round(World.Camera.x/48)+Math.round(window.innerWidth/64); x++) {
-        for (let y = Math.round((World.Camera.y-128)/64); y < Math.round(World.Camera.y/48)+Math.round(window.innerHeight/64); y++) {
+    for (let x = Math.round((World.Camera.x-128)/64); x < Math.round((World.Camera.x-128)/64)+25; x++) {
+        for (let y = Math.round((World.Camera.y-128)/64); y < Math.round((World.Camera.y-128)/64)+20; y++) {
             try {
                 Canvas.DrawBlock(ctx,blockData[y][x],x*64-World.Camera.x,y*64-World.Camera.y)
                 if(blockData[y][x] == "n1" || blockData[y][x] == "n2"){
