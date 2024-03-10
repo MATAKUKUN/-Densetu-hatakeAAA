@@ -5,9 +5,11 @@ class KeyEvent{
         switch (this.Key) {
             case "a":
                 World.Player.x-= 2;
+                World.PlayerMode = 0;
                 break;
                 case "d":
                     World.Player.x+=2;
+                    World.PlayerMode = 1;
                     break;
                 case "w":
                     World.Player.y-= 2;
